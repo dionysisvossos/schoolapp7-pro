@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
+//@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class TeacherServiceImpl implements ITeacherService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TeacherServiceImpl.class);
@@ -30,10 +30,10 @@ public class TeacherServiceImpl implements ITeacherService {
     //@Inject
     private final ITeacherDAO teacherDAO;
 
-//    @Inject
-//    public TeacherServiceImpl(ITeacherDAO teacherDAO) {
-//        this.teacherDAO = teacherDAO;
-//    }
+    @Inject
+    public TeacherServiceImpl(ITeacherDAO teacherDAO) {
+        this.teacherDAO = teacherDAO;
+    }
 
     @Override
     public TeacherReadOnlyDTO insertTeacher(TeacherInsertDTO insertDTO)
