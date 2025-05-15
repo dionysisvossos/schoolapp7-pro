@@ -114,10 +114,11 @@ public abstract class AbstractDAO<T extends IdentifiableEntity> implements IGene
         selectQuery.select(entityRoot).where(predicates.toArray(new Predicate[0]));
         TypedQuery<T> query = em.createQuery(selectQuery);
         addParametersToQuery(query, criteria);
-        List<T> entitiesToReturn = query.getResultList();
-        if (entitiesToReturn != null) System.out.println("IN getByCriteriaDAO" + Arrays.toString(entitiesToReturn.toArray()));
-        else System.out.println("IS NULL");
-        return  entitiesToReturn;
+//        List<T> entitiesToReturn = query.getResultList();
+//        if (entitiesToReturn != null) System.out.println("IN getByCriteriaDAO" + Arrays.toString(entitiesToReturn.toArray()));
+//        else System.out.println("IS NULL");
+//        return  entitiesToReturn;
+        return query.getResultList();
     }
 
     protected List<Predicate> getPredicatesList(CriteriaBuilder builder, Root<T> entityRoot, Map<String , Object> criteria) {
