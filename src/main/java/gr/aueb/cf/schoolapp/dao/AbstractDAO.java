@@ -79,6 +79,7 @@ public abstract class AbstractDAO<T extends IdentifiableEntity> implements IGene
 
     @Override
     public long getCountByCriteria(Map<String, Object> criteria) {
+        EntityManager em = getEntityManager();
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
         Root<T> entityRoot = countQuery.from(persistenceClass);
@@ -87,8 +88,12 @@ public abstract class AbstractDAO<T extends IdentifiableEntity> implements IGene
         countQuery.select(builder.count(entityRoot))
                 .where(predicates.toArray(new Predicate[0]));
 
-        return getEntityManager()
-                .createQuery(countQuery)
+        // Added
+        TypedQuery<Long> query = em.createQuery(countQuery);
+        addParametersToQuery(query, criteria);
+
+        return query
+//                .createQuery(countQuery)
                 .getSingleResult();
     }
 
